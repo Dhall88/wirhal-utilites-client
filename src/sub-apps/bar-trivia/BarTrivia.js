@@ -53,11 +53,12 @@ export default class BarTrivia extends Component {
         <h1 onClick={this.getQuestions}>Bar Triva</h1>
         <div onClick={this.nextQuestion}>Get question</div>
         {this.state.displayQuestion?
+          <>
         <p>{this.state.activeQuestion.question.replace(/&quot;/g,`"`).replace(/&#039;/g,"'")}</p>
-        <List questionData=this.state.activeQuestion />
+        <List questionData={this.state.activeQuestion} />
+        </>
         :''
-
-        <p>'&quot;'</p>
+      }
       </div>
       // {this.state.displayQuestion?
       // <p>{eval(this.state.activeQuestion.question.replace(/"/g,""))}</p>
