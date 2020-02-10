@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import Home from './sub-apps/utilities/Home';
 import BarTrivia from './sub-apps/bar-trivia/BarTrivia';
+import MathDrills from './sub-apps/math-drills/MathDrills'
 // import SignUpForm from './sub-apps/utilities/SignUpForm';
 // import LogInForm from './sub-apps/utilities/LogInForm';
 // import LogOut from './sub-apps/utilities/LogOut';
@@ -50,6 +51,14 @@ export default class MainRouter extends Component {
               >
                 Bar Trivia
               </NavLink>
+              <NavLink
+                exact
+                to="/math-drills"
+                activeClassName="is-active"
+                className="nav-item m-2"
+              >
+                Math Drills
+              </NavLink>
 						</nav>
 					</header>
 					<div
@@ -61,6 +70,9 @@ export default class MainRouter extends Component {
 					</div>
 					<div className="app-container">
 						<Route path="/bar-trivia" component={BarTrivia} />
+					</div>
+          <div className="app-container">
+						<Route path="/math-drills" component={MathDrills} />
 					</div>
 				</HashRouter>
 			</React.Fragment>
