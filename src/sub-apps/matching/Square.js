@@ -9,12 +9,19 @@ export default class Square extends Component {
 
   }
 
-  flip = (event) => {
-    event.preventDefault()
+  flip = (reset=false) => {
+    if(this.state.flipped==='') {
     this.setState({
       flipped:'flipped'
-    })
-    this.props.parentCallback(this.props.symbol)
+    })}
+    else {
+      this.setState({
+        flipped:''
+      })
+    }
+    if (reset===false) {
+      this.props.parentCallback(this.props.symbol,this.props.id)
+    }
   }
 
 
@@ -25,7 +32,7 @@ export default class Square extends Component {
 
  render() {
   return(
-   <div onClick={this.state.flipped===''?this.flip:''} id={this.state.flipped}className={`card-container ${this.state.flipped}`}>
+   <div onClick={this.state.flipped===''?()=>this.flip(false):''} id={this.state.flipped}className={`card-container ${this.state.flipped}`}>
     <div className='card-body'>
      <SquareBack symbol={this.props.symbol} />
 
