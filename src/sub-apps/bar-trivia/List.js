@@ -11,7 +11,7 @@ export default class List extends Component {
       if(randPosition===3){
         for(let i = 0; i<3;i++) {
           listArr.push(<li>{this.props.questionData.incorrect_answers[i]}</li>)
-          if (i=2) {
+          if (i===2) {
             listArr.push(<li>{this.props.questionData.correct_answer}</li>)
           }
         }

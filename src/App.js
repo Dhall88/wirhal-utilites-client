@@ -4,6 +4,7 @@ import { HashRouter, NavLink, Route } from 'react-router-dom';
 import Home from './sub-apps/utilities/Home';
 import BarTrivia from './sub-apps/bar-trivia/BarTrivia';
 import MathDrills from './sub-apps/math-drills/MathDrills'
+import Matching from './sub-apps/matching/Board'
 // import SignUpForm from './sub-apps/utilities/SignUpForm';
 // import LogInForm from './sub-apps/utilities/LogInForm';
 // import LogOut from './sub-apps/utilities/LogOut';
@@ -59,6 +60,14 @@ export default class MainRouter extends Component {
               >
                 Math Drills
               </NavLink>
+							<NavLink
+								exact
+								to="/matching"
+								activeClassName="is-active"
+								className="nav-item m-2"
+							>
+								Matching
+							</NavLink>
 						</nav>
 					</header>
 					<div
@@ -68,12 +77,9 @@ export default class MainRouter extends Component {
 						<Route path="/" exact component={Home} />
 
 					</div>
-					<div className="app-container">
 						<Route path="/bar-trivia" component={BarTrivia} />
-					</div>
-          <div className="app-container">
 						<Route path="/math-drills" component={MathDrills} />
-					</div>
+						<Route path="/matching" component={Matching} />
 				</HashRouter>
 			</React.Fragment>
 		);

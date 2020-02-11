@@ -60,12 +60,6 @@ export default class BarTrivia extends Component {
         :''
       }
       </div>
-      // {this.state.displayQuestion?
-      // <p>{eval(this.state.activeQuestion.question.replace(/"/g,""))}</p>
-      // : ''}
-      // {this.state.activeQuestion.incorrect_answers.map(incorrect_answer => {
-      //   return <p>{incorrect_answer}</p>
-      // })}
     )
   }
 }
