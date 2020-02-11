@@ -18,14 +18,18 @@ export default class Square extends Component {
     this.setState({
       flipped:''
     })
-
-    setTimeout(()=>console.log(this.state.flipped),50)
-
   }
+
+  setTimeout(this.sendData,10)
   }
+
+  sendData = () => {
+         this.props.parentCallback(this.state.flipped);
+    }
+
  render() {
   return(
-   <div onClick={this.flip} id={this.state.flipped}className={`card-container ${this.state.flipped}`}>
+   <div onClick={this.state.flipped===''?this.flip:''} id={this.state.flipped}className={`card-container ${this.state.flipped}`}>
     <div className='card-body'>
      <SquareBack />
 
