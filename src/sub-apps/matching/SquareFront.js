@@ -5,9 +5,7 @@ export default class CardFront extends React.Component {
  render() {
   return(
    <div className='card-side side-front'>
-    <div className='container-fluid'>
-     FRONT
-    </div>
+    <img src="https://www.publicdomainpictures.net/pictures/310000/nahled/cat-riding-bicycle-1570634127V5L.png"/>
    </div>
   )
  }

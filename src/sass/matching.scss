@@ -30,10 +30,10 @@ h2 {
 .card-container {
  position: relative;
  z-index: 1;
- margin: 32px auto;
- max-width: 720px;
- height: 420px;
- perspective: 1000px;
+ // margin: 32px auto;
+ height: 200px;
+ width: 200px;
+ // perspective: 1000px;
 }
 
 img {
@@ -48,17 +48,6 @@ img {
  transform-style: preserve-3d;
  transition: all .7s linear;
 }
-
-/*- Flipping the card -*/
-// .card-container:hover .card-body {
-//  transform: rotateY(180deg);
-// }
-//
-// .card-container:hover > .card-body > .side-front {
-//  opacity: 0;
-//  visibility: hidden;
-//  transition: opacity 1s ease-in, visibility .75s linear;
-// }
 
 .flipped .card-body {
  transform: rotateY(180deg);
@@ -97,7 +86,6 @@ img {
 /*- Backside -*/
 .side-back {
  z-index: 2;
- padding: 32px;
  text-align: center;
  transform: rotateY(180deg);
 }
@@ -146,6 +134,11 @@ textarea {
   background-color: lighten(#0c81f6, 15%);
   box-shadow: 0 18px 35px rgba(50,50,93,.1),0 8px 15px rgba(0,0,0,.07);
  }
+}
+.flex{
+  display:flex;
+  flex-wrap: wrap;
+  width: 800px;
 }
 
 /*- Social links -*/

@@ -11,21 +11,22 @@ export default class Board extends Component {
     stored:[],
     matchBoolean:false,
     refIndex:[],
-    numSquares:0
+    numSquares:0,
+    width:300,
+    difficulty:"8",
+    scale: 3
   }
-  // myRef = [];
-  // refArr=[childRef0,childRef1]
-  childRef0=React.createRef();
-  childRef1=React.createRef();
-  childRef2=React.createRef(); childRef3=React.createRef();
+
+  childRef0=React.createRef();childRef1=React.createRef();childRef2=React.createRef(); childRef3=React.createRef();
   childRef4=React.createRef(); childRef5=React.createRef();childRef6=React.createRef(); childRef7=React.createRef();
   childRef8=React.createRef(); childRef9=React.createRef();childRef10=React.createRef(); childRef11=React.createRef();
   childRef12=React.createRef(); childRef13=React.createRef();childRef14=React.createRef(); childRef15=React.createRef();
-  symbolArr=['x','x','o','o']
+  symbolArr=['x','y','p','o','a','b','g','w']
 
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value })
   }
+
 
   callback = (childSymbol, childId) => {
 
@@ -42,7 +43,8 @@ export default class Board extends Component {
           if (stored[0]===stored[1]) {
             this.setState({
               matchBoolean:true,
-
+              stored:[],
+              refIndex:[]
             })
           } else {
             setTimeout(()=>{
@@ -66,28 +68,29 @@ export default class Board extends Component {
     let squares=[];
     for(let i = 0;i<this.state.difficulty;i++) {
       squares.push(
-        <div>
-          <Square ref={this[`childRef${i}`]} id={i} symbol={this.symbolArr[i]} parentCallback={this.callback}/>
-        </div>
-
+          <Square ref={this[`childRef${i}`]} id={i} symbol={this.symbolArr[Math.floor(i/2)]} parentCallback={this.callback}/>
       )
     }
+
+    squares.sort(function (a, b) { return 0.5 - Math.random() })
     return(
       <>
       <form onSubmit={this.handleSubmit}>
         <label>
           Difficulty
           <select onChange={this.handleChange} id = 'difficulty'>
-            <option value={6}>Easy</option>
-            <option value={10}>Medium</option>
+            <option value={8}>Easy</option>
+            <option value={12}>Medium</option>
             <option value={16}>Hard</option>
           </select>
+          <input type='submit'/>
         </label>
-        <input type='submit' />
         </form>
         {this.state.matchBoolean===true?
         <div classNamme='matched'>YOU GOT A MATCH</div>:''}
+        <div  className='flex'>
         {squares}
+        </div>
       </>
     )
   }
