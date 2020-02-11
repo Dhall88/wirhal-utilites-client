@@ -6,7 +6,7 @@ export default class CardBack extends React.Component {
   return(
    <div className='card-side side-back'>
     <div className='container-fluid'>
-     BACK
+     {this.props.symbol}
     </div>
    </div>
   )

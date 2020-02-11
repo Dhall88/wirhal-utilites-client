@@ -6,32 +6,28 @@ import SquareBack from './SquareBack'
 export default class Square extends Component {
   state={
     flipped:''
+
   }
 
   flip = (event) => {
     event.preventDefault()
-    if(this.state.flipped===''){
     this.setState({
       flipped:'flipped'
     })
-  } else {
-    this.setState({
-      flipped:''
-    })
+    this.props.parentCallback(this.props.symbol)
   }
 
-  setTimeout(this.sendData,10)
-  }
 
-  sendData = () => {
-         this.props.parentCallback(this.state.flipped);
-    }
+  // sendData = () => {
+  //   this.props.parentCallback("HEYYYYY")
+  // }
+
 
  render() {
   return(
    <div onClick={this.state.flipped===''?this.flip:''} id={this.state.flipped}className={`card-container ${this.state.flipped}`}>
     <div className='card-body'>
-     <SquareBack />
+     <SquareBack symbol={this.props.symbol} />
 
      <SquareFront />
     </div>
