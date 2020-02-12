@@ -13,18 +13,22 @@ export default class Board extends Component {
     refIndex:[],
     numSquares:0,
     width:300,
-    difficulty:"0",
+    difficulty:"8",
     scale: 3,
-    symbols:[]
+    symbols:[],
+    squares:[],
+    matches:0,
+    totalMatches:4
   }
-
   childRef0=React.createRef();childRef1=React.createRef();childRef2=React.createRef(); childRef3=React.createRef();
   childRef4=React.createRef(); childRef5=React.createRef();childRef6=React.createRef(); childRef7=React.createRef();
   childRef8=React.createRef(); childRef9=React.createRef();childRef10=React.createRef(); childRef11=React.createRef();
   childRef12=React.createRef(); childRef13=React.createRef();childRef14=React.createRef(); childRef15=React.createRef();
+
   symbolArr=['c','c','p','p','a','a','g','g','x','x','o','o','b','b','w','w']
   difficulty="0"
   squares=[]
+  symbols=[]
 
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value })
@@ -32,16 +36,31 @@ export default class Board extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.squares=[];
+    this.symbols=[];
+    console.log(this.squares);
     this.difficulty=this.state.difficulty
-    let symbols = this.symbolArr.slice(this.difficulty)
-    symbols = symbols.sort(function() {
+    this.symbols = this.symbolArr.slice(this.difficulty)
+    this.symbols = this.symbols.sort(function() {
       return .5 -Math.random()
     })
-    console.log(symbols);
-    console.log(symbols);
+    console.log(this.symbols);
+
+    for(let i = 0;i<this.difficulty;i++) {
+      this.squares.push(
+          <Square ref={this[`childRef${i}`]} id={i} symbol={this.symbols[i]} parentCallback={this.callback}/>
+      )
+    }
     this.setState({
-      symbols: symbols
+      squares:this.squares,
+      totalMatches:this.difficulty/2,
+
     })
+
+  }
+
+  playAgain = () => {
+    window.location.reload(false);
   }
 
 
@@ -60,7 +79,8 @@ export default class Board extends Component {
             this.setState({
               matchBoolean:true,
               stored:[],
-              refIndex:[]
+              refIndex:[],
+              matches: this.state.matches+1
             })
           } else {
             setTimeout(()=>{
@@ -69,7 +89,7 @@ export default class Board extends Component {
             this.setState({
               matchBoolean:false,
               stored: [],
-              refIndex: []
+              refIndex: [],
             })
           },1000)
           }
@@ -81,18 +101,6 @@ export default class Board extends Component {
 //   this.
 // }
   render() {
-    let squares=[];
-    // let symbols = this.symbolArr.slice(8)
-    // symbols = symbols.sort(function() {
-    //   return .5 -Math.random()
-    // })
-    // console.log(symbols);
-    for(let i = 0;i<this.difficulty;i++) {
-      squares.push(
-          <Square ref={this[`childRef${i}`]} id={i} symbol={this.state.symbols[i]} parentCallback={this.callback}/>
-      )
-    }
-
 
     return(
       <>
@@ -100,7 +108,6 @@ export default class Board extends Component {
         <label>
           Difficulty
           <select onChange={this.handleChange} id = 'difficulty'>
-            <option>Select</option>
             <option value={8}>Easy</option>
             <option value={12}>Medium</option>
             <option value={16}>Hard</option>
@@ -111,8 +118,10 @@ export default class Board extends Component {
         {this.state.matchBoolean===true?
         <div classNamme='matched'>YOU GOT A MATCH</div>:''}
         <div  className='flex'>
-        {squares}
+        {this.state.squares}
         </div>
+        {this.state.totalMatches===this.state.matches?
+          <div onClick={this.playAgain}>PLAY AGAIN</div>:''}
       </>
     )
   }
