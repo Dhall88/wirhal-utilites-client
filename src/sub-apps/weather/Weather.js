@@ -25,8 +25,8 @@ export default class Weather extends Component {
   render() {
     return(
       <div>
-      <BarChart dataType='temp' bulkData={this.state.data}/>
-
+      <BarChart dataType={['main','temp']} label='Temperature' bulkData={this.state.data}/>
+      <BarChart dataType={['rain','3h']} label='Rain' bulkData={this.state.data}/>
       </div>
     )
   }

@@ -16,7 +16,7 @@ export default class BarChart extends Component {
     labels: [],
     datasets: [
       {
-        label: 'Avg high temps',
+        label: this.props.label,
         data: []
       }
     ]
@@ -24,13 +24,13 @@ export default class BarChart extends Component {
 
   for(let i = 2; i<7;i++) {
     chartData.labels.push(i*3)
-    chartData.datasets[0].data.push(data[i].main[this.props.dataType])
+    chartData.datasets[0].data.push(data[i][this.props.dataType[0]][this.props.dataType[1]])
   }
   return chartData
 }
 
 createChart = (data) => {
-  const ctx = document.querySelector('#temperatures')
+  const ctx = document.querySelector(`#${this.props.label}`)
   const tempsChart = new Chart(ctx, {
     type: 'line',
     data: data
@@ -40,7 +40,7 @@ createChart = (data) => {
     return (
       <>
         <h1 onClick={this.test}>Temperatures</h1>
-        <canvas id="temperatures" width="300" height="100"></canvas>
+        <canvas id={this.props.label} width="300" height="100"></canvas>
       </>
     )
   }
