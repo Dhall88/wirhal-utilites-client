@@ -8,76 +8,194 @@ let simplex = new SimplexNoise(4);
 export default class Adventure extends Component {
 
   componentDidMount() {
-    this.generateMesh(this.generateTexture())
-  }
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+this.refs.canvas.appendChild(renderer.domElement);
+    var geometry = new THREE.PlaneBufferGeometry( 2000, 2000, 256, 256 );
+    // var material = new THREE.MeshLambertMaterial({color: 0x00ff00});
+// var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var terrain = new THREE.Mesh( geometry, material );
+terrain.rotation.x = -Math.PI / 2;
+scene.add( terrain );
 
-map = (val, smin, smax, emin, emax) => {
-    const t =  (val-smin)/(smax-smin)
-    return (emax-emin)*t + emin
+var render = function () {
+  requestAnimationFrame( render );
+
+  // terrain.rotation.x += 0.01;
+  // terrain.rotation.y += 0.01;
+  camera.position.y+=0.01;
+  console.log('in render');
+
+  renderer.render(scene, camera);
 }
 
-noise = (nx, ny) => {
-    // Re-map from -1.0:+1.0 to 0.0:1.0
-    return this.map(simplex.noise2D(nx,ny),-1,1,0,1)
+render();
 }
+// var scene = new THREE.Scene();
+// var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+// var renderer = new THREE.WebGLRenderer();
+// renderer.setSize( window.innerWidth, window.innerHeight );
+// // document.body.appendChild( renderer.domElement );
+// // use ref as a mount point of the Three.js scene instead of the document.body
+// this.refs.canvas.appendChild( renderer.domElement );
+// var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+// var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+// var cube = new THREE.Mesh( geometry, material );
+// scene.add( cube );
+// camera.position.z = 5;
+// var animate = function () {
+//   requestAnimationFrame( animate );
+//   cube.rotation.x += 0.01;
+//   cube.rotation.y += 0.01;
+//   renderer.render( scene, camera );
+// };
+// animate();
+//
+//
+// }
+
+// map = (val, smin, smax, emin, emax) => {
+//     const t =  (val-smin)/(smax-smin)
+//     return (emax-emin)*t + emin
+// }
+//
+// noise = (nx, ny) => {
+//     // Re-map from -1.0:+1.0 to 0.0:1.0
+//     return this.map(simplex.noise2D(nx,ny),-1,1,0,1)
+// }
 
 //stack some noisefields together
-octave = (nx,ny,octaves) => {
-    let val = 0;
-    let freq = 1;
-    let max = 0;
-    let amp = 1;
-    for(let i=0; i<octaves; i++) {
-        val += this.noise(nx*freq,ny*freq)*amp;
-        max += amp;
-        amp /= 2;
-        freq  *= 2;
-    }
-    return val/max;
-}
+// octave = (nx,ny,octaves) => {
+//     let val = 0;
+//     let freq = 1;
+//     let max = 0;
+//     let amp = 1;
+//     for(let i=0; i<octaves; i++) {
+//         val += this.noise(nx*freq,ny*freq)*amp;
+//         max += amp;
+//         amp /= 2;
+//         freq  *= 2;
+//     }
+//     return val/max;
+// }
 
 //generate grayscale image of noise
-generateTexture = () => {
-    const canvas = this.refs.canvas;
-    const c = canvas.getContext('2d');
-    c.fillStyle = 'black'
-    c.fillRect(0,0,canvas.width, canvas.height)
+// generateTexture = () => {
+//     const canvas = this.refs.canvas;
+//     const c = canvas.getContext('2d');
+//     c.fillStyle = 'black'
+//     c.fillRect(0,0,canvas.width, canvas.height)
+//
+//     for(let i=0; i<canvas.width; i++) {
+//         for(let j=0; j<canvas.height; j++) {
+//             let v =  this.octave(i/canvas.width,j/canvas.height,16)
+//             const per = (100*v).toFixed(2)+'%'
+//             c.fillStyle = `rgb(${per},${per},${per})`
+//             c.fillRect(i,j,1,1)
+//         }
+//     }
+//     // console.log(c.getImageData(0,0,canvas.width,canvas.height).width);
+//     return c.getImageData(0,0,canvas.width,canvas.height)
+// }
 
-    for(let i=0; i<canvas.width; i++) {
-        for(let j=0; j<canvas.height; j++) {
-            let v =  this.octave(i/canvas.width,j/canvas.height,16)
-            const per = (100*v).toFixed(2)+'%'
-            c.fillStyle = `rgb(${per},${per},${per})`
-            c.fillRect(i,j,1,1)
-        }
-    }
-    return c.getImageData(0,0,canvas.width,canvas.height)
-}
-
-generateMesh = (data) => {
-  const geo = new THREE.PlaneGeometry(data.width,data.height,
-                                    data.width,data.height+1)
-//assign vert data from the canvas
-for(let j=0; j<data.height; j++) {
-    for (let i = 0; i < data.width; i++) {
-        const n =  (j*(data.height)  +i)
-        const nn = (j*(data.height+1)+i)
-        const col = data.data[n*4] // the red channel
-        const v1 = geo.vertices[nn]
-        v1.z = this.map(col,0,255,-10,10) //map from 0:255 to -10:10
-        if(v1.z > 2.5) v1.z *= 1.3 //exaggerate the peaks
-        // v1.x += map(Math.random(),0,1,-0.5,0.5) //jitter x
-        // v1.y += map(Math.random(),0,1,-0.5,0.5) //jitter y
-    }
-}
-}
 
   render() {
     return (
-      <canvas ref="canvas" width={window.innerWidth} height={window.innerHeight} />
+      <>
+      <div ref="canvas" />
+      <div ref="div"/>
+      </>
     )
   }
 }
+
+
+
+// const data = this.generateTexture()
+//
+// const geo = new THREE.PlaneGeometry(data.width,data.height,
+//   data.width,data.height+1)
+//   //assign vert data from the canvas
+//   for(let j=0; j<data.height; j++) {
+//     for (let i = 0; i < data.width; i++) {
+//       const n =  (j*(data.height)  +i)
+//       const nn = (j*(data.height+1)+i)
+//       const col = data.data[n*4] // the red channel
+//       const v1 = geo.vertices[nn]
+//       console.log('in mesh');
+//       v1.z = this.map(col,0,255,-10,10) //map from 0:255 to -10:10
+//       if(v1.z > 2.5) v1.z *= 1.3 //exaggerate the peaks
+//       // v1.x += map(Math.random(),0,1,-0.5,0.5) //jitter x
+//       // v1.y += map(Math.random(),0,1,-0.5,0.5) //jitter y
+//     }
+//   }
+//
+//   //for every face
+//   geo.faces.forEach(f=>{
+//     //get three verts for the face
+//     const a = geo.vertices[f.a]
+//     const b = geo.vertices[f.b]
+//     const c = geo.vertices[f.c]
+//
+//     //if average is below water, set to 0
+//     //alt: color transparent to show the underwater landscape
+//     const avgz = (a.z+b.z+c.z)/3
+//     if(avgz < 0) {
+//       a.z = 0
+//       b.z = 0
+//       c.z = 0
+//     }
+//
+//
+//     //assign colors based on the highest point of the face
+//     const max = Math.max(a.z,Math.max(b.z,c.z))
+//     if(max <=0)   return f.color.set(0x44ccff)
+//     if(max <=1.5) return f.color.set(0x228800)
+//     if(max <=3.5)   return f.color.set(0xeecc44)
+//     if(max <=5)   return f.color.set(0xcccccc)
+//
+//     //otherwise, return white
+//     f.color.set('white')
+//   })
+//
+//   geo.colorsNeedUpdate = true
+//   geo.verticesNeedUpdate = true
+//   //required for flat shading
+//   geo.computeFlatVertexNormals()
+//   const mesh = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({
+//     // wireframe:true,
+//     vertexColors: THREE.VertexColors,
+//     //required for flat shading
+//     flatShading:true,
+//   }))
+//   mesh.position.y = -0
+//   mesh.position.z = -20
+//   //tilt slightly so we can see it better
+//   mesh.rotation.x = -30*(Math.PI/180)
+//
+//   var scene = new THREE.Scene();
+//   var camera = new THREE.PerspectiveCamera( 75, 600 / 600, 0.1, 1000 );
+//
+//   camera.position.z=5;
+//
+//   var renderer = new THREE.WebGLRenderer();
+//   renderer.setSize( 600, 600 );
+//   scene.add(mesh)
+//   this.refs.div.appendChild( renderer.domElement );
+//
+//   var animate = function () {
+//     requestAnimationFrame( animate );
+//     renderer.render( scene, camera );
+//     console.log('in animate');
+//   }
+//
+//   animate();
+// }
+
 
 
 
