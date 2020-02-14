@@ -24,7 +24,7 @@ export default class Weather extends Component {
 
   render() {
     return(
-      <div>
+      <div className='chart-flex'>
       <BarChart dataType={['main','temp']} label='Temperature' bulkData={this.state.data}/>
       <BarChart dataType={['rain','3h']} label='Rain' bulkData={this.state.data}/>
       <BarChart dataType={['main','humidity']} label='Humidity' bulkData={this.state.data}/>

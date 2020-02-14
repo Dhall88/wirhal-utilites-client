@@ -48,7 +48,7 @@ export default class MathDrills extends Component {
           </select>
         </label>
         <input type="submit" />
-        </form>
+      </form>
         {this.state.showComponent?
           <Type />
           :''

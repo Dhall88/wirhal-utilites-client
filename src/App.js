@@ -5,6 +5,10 @@ import Home from './sub-apps/utilities/Home';
 import BarTrivia from './sub-apps/bar-trivia/BarTrivia';
 import MathDrills from './sub-apps/math-drills/MathDrills'
 import Matching from './sub-apps/matching/Board'
+import Adventure from './sub-apps/adventure/Adventure'
+import Weather from './sub-apps/weather/Weather'
+import Chess from './sub-apps/chess/Chess'
+// import BlockQuest from '.sub-apps/block-quest/main'
 // import SignUpForm from './sub-apps/utilities/SignUpForm';
 // import LogInForm from './sub-apps/utilities/LogInForm';
 // import LogOut from './sub-apps/utilities/LogOut';
@@ -68,6 +72,30 @@ export default class MainRouter extends Component {
 							>
 								Matching
 							</NavLink>
+							<NavLink
+							exact
+							to="/adventure"
+							activeClassName="is-active"
+							className="nav-item m-2"
+							>
+							Adventure
+							</NavLink>
+							<NavLink
+							exact
+							to="/weather"
+							activeClassName="is-active"
+							className="nav-item m-2"
+							>
+							Weather
+							</NavLink>
+							<NavLink
+							exact
+							to="/chess"
+							activeClassName="is-active"
+							className="nav-item m-2"
+							>
+							Chess
+							</NavLink>
 						</nav>
 					</header>
 					<div
@@ -80,6 +108,9 @@ export default class MainRouter extends Component {
 						<Route path="/bar-trivia" component={BarTrivia} />
 						<Route path="/math-drills" component={MathDrills} />
 						<Route path="/matching" component={Matching} />
+						<Route path="/adventure" component={Adventure} />
+						<Route path="/weather" component={Weather} />
+						<Route path="/chess" component={Chess} />
 				</HashRouter>
 			</React.Fragment>
 		);
