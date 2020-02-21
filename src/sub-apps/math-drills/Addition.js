@@ -10,7 +10,7 @@ export default class Addition extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({ [event.target.id]: event.target.value ,showComponent:true})
+    this.setState({ [event.target.id]: event.target.value})
   }
 
   questionArr = () => {
@@ -34,7 +34,8 @@ export default class Addition extends Component {
     if(parseInt(this.state.answer)===answer) {
       this.setState({
         dispHorray: true,
-        answer: ""
+        answer: "",
+        score: this.state.score+(this.props.difficulty*10)
       })
       setTimeout(()=> {
         this.setState({
@@ -57,6 +58,7 @@ export default class Addition extends Component {
     return(
       <>
         <h1>Addition</h1>
+        <div>{this.state.score}</div>
         <button onClick={this.questionArr}></button>
         <ul>
           {this.state.numArr.map((num)=> {
