@@ -9,19 +9,19 @@ import OrderOfOperations from './OrderOfOperations.js'
 
 export default class MathDrills extends Component {
   state = {
-    difficulty:'',
+    difficulty:2,
     type:0,
     showComponent: false,
   }
   handleChange = (event) => {
-    this.setState({ [event.target.id]: event.target.value })
+    this.setState({ [event.target.id]: event.target.value ,showComponent:true})
   }
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState({
-      showComponent:true
-    })
-  }
+  // handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     showComponent:true
+  //   })
+  // }
   render() {
     const typeArr = [Numbers, Addition, Subtraction, Multiplication, Division, OrderOfOperations]
     const Type = typeArr[this.state.type]
@@ -31,9 +31,9 @@ export default class MathDrills extends Component {
         <label>
           Difficulty
           <select onChange={this.handleChange} id = 'difficulty'>
-            <option value={10}>Easy</option>
-            <option value={25}>Medium</option>
-            <option value={100}>Hard</option>
+            <option value={2}>Easy</option>
+            <option value={3}>Medium</option>
+            <option value={5}>Hard</option>
           </select>
         </label>
         <label>
@@ -50,7 +50,7 @@ export default class MathDrills extends Component {
         <input type="submit" />
       </form>
         {this.state.showComponent?
-          <Type difficulty=this.state.difficulty/>
+          <Type difficulty={this.state.difficulty}/>
           :''
         }
 
