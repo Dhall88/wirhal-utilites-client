@@ -31,9 +31,9 @@ export default class MathDrills extends Component {
         <label>
           Difficulty
           <select onChange={this.handleChange} id = 'difficulty'>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
+            <option value={10}>Easy</option>
+            <option value={25}>Medium</option>
+            <option value={100}>Hard</option>
           </select>
         </label>
         <label>
@@ -50,7 +50,7 @@ export default class MathDrills extends Component {
         <input type="submit" />
       </form>
         {this.state.showComponent?
-          <Type />
+          <Type difficulty=this.state.difficulty/>
           :''
         }
 
