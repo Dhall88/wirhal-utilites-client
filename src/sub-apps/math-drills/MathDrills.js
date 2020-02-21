@@ -6,6 +6,7 @@ import Subtraction from './Subtraction.js'
 import Multiplication from './Multiplication.js'
 import Division from './Division.js'
 import OrderOfOperations from './OrderOfOperations.js'
+import Audio from '../utilities/Audio.js'
 
 export default class MathDrills extends Component {
   state = {
@@ -53,7 +54,7 @@ export default class MathDrills extends Component {
           <Type difficulty={this.state.difficulty}/>
           :''
         }
-
+        <Audio />
 
       </div>
     )

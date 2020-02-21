@@ -5,7 +5,7 @@ export default class Division extends Component {
     numArr:[],
     score:0,
     answer:"",
-    remainder:"",
+    remainder:"0",
     dispHorray: false,
     dispTryAgain: false
   }
@@ -28,7 +28,8 @@ export default class Division extends Component {
     })
     console.log(arr);
   }
-  check = () => {
+  check = (event) => {
+    event.preventDefault();
     let answer = Math.floor(this.state.numArr[0]/this.state.numArr[1]);
     let remainder = this.state.numArr[0]%this.state.numArr[1]
     console.log(answer);
@@ -66,12 +67,12 @@ export default class Division extends Component {
         })}
       </ul>
       <form onSubmit={this.check}>
-        <input onChange={this.handleChange} type="text" id="answer" />
-        <input onChange={this.handleChange} type="text" idf="remainder" />
+        <input onChange={this.handleChange} type="text" value={this.state.answer} id="answer" />
+        <input onChange={this.handleChange} type="text" value={this.state.remainder} id="remainder" />
         <input type="submit" />
       </form>
       {this.state.dispHorray?<div>YAY</div>:''}
-      {this.state.dispTryAgain?<div>Try again</div>:'z'}
+      {this.state.dispTryAgain?<div>Try again</div>:'2'}
     </>
     )
   }

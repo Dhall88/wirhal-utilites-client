@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js'
-import '../../sass/weather.scss'
+// import '../../sass/weather.scss'
 
 export default class BarChart extends Component {
 

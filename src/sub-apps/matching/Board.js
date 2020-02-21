@@ -3,7 +3,7 @@ import Flippy, {FrontSide,BackSide} from 'react-flippy';
 // import SquareBack from './SquareBack.js'
 // import SquareFront from './SquareFront.js'
 import Square from './Square.js'
-import '../../sass/matching.scss'
+import '../../css/matching.css'
 
 export default class Board extends Component {
   state={
@@ -39,8 +39,9 @@ export default class Board extends Component {
     this.squares=[];
     this.symbols=[];
     console.log(this.squares);
+    console.log(this.state.difficulty);
     this.difficulty=this.state.difficulty
-    this.symbols = this.symbolArr.slice(this.difficulty)
+    this.symbols = this.symbolArr.slice(0,this.difficulty)
     this.symbols = this.symbols.sort(function() {
       return .5 -Math.random()
     })
