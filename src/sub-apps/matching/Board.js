@@ -122,7 +122,7 @@ export default class Board extends Component {
         {this.state.squares}
         </div>
         {this.state.totalMatches===this.state.matches?
-          <div onClick={this.playAgain}>PLAY AGAIN</div>:''}
+          <div onClick={this.playAgain}>PLAY AGAIN</div>:''}2
       </>
     )
   }

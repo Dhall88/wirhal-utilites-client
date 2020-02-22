@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Numbers from './Numbers.js'
 import Addition from './Addition.js'
 import Subtraction from './Subtraction.js'
 import Multiplication from './Multiplication.js'
@@ -24,7 +23,7 @@ export default class MathDrills extends Component {
   //   })
   // }
   render() {
-    const typeArr = [Numbers, Addition, Subtraction, Multiplication, Division, OrderOfOperations]
+    const typeArr = [Addition, Subtraction, Multiplication, Division, OrderOfOperations]
     const Type = typeArr[this.state.type]
     return(
       <div>
@@ -40,12 +39,11 @@ export default class MathDrills extends Component {
         <label>
           Type
           <select onChange={this.handleChange} id = 'type'>
-            <option value={0}>Numbers</option>
-            <option value={1}>Addition</option>
-            <option value={2}>Subtration</option>
-            <option value={3}>Multiplication</option>
-            <option value={4}>Division</option>
-            <option value={5}>Order Of Operations</option>
+            <option value={0}>Addition</option>
+            <option value={1}>Subtration</option>
+            <option value={2}>Multiplication</option>
+            <option value={3}>Division</option>
+            <option value={4}>Order Of Operations</option>
           </select>
         </label>
         <input type="submit" />

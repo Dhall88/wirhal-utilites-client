@@ -102,7 +102,7 @@ img {
  margin-top: 16px;
 }
 
-input,
+/* input,
 textarea {
  padding: 8px;
  width: 100%;
@@ -115,7 +115,7 @@ textarea {
   outline: 0;
   border-bottom: 1px solid #0c81f6;
  }
-}
+} */
 
 textarea {
  max-height: 80px;
