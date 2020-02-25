@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import styles from './style.css';
+import styled from 'styled-components';
 import axios from 'axios';
+
+const Test=styled.div`
+  background-color: blue;
+`;
+
 
 export default class BarTrivia extends Component {
   state = {
@@ -39,7 +44,6 @@ export default class BarTrivia extends Component {
       displayCounter: true
       })
     })
-        console.log(styles);
   }
 
   nextQuestion = (event) => {
@@ -56,16 +60,16 @@ export default class BarTrivia extends Component {
     this.setState({
       score: this.state.score+10,
       displayQuestion: false,
-      answer: false,
+      answer: true,
       displayResult: true
     })
-    this.nextQuestion()
     setTimeout(() => {
+      this.nextQuestion()
       this.setState({
         displayQuestion: true,
         displayResult: false
       })
-    },1000)
+    },2000)
   }
 
   incorrect = (event) => {
@@ -82,11 +86,11 @@ export default class BarTrivia extends Component {
         displayQuestion: true,
         displayResult: false
       })
-    },1000)
+    },2000)
   }
 
   replaceSymbols = (str) => {
-    return str.replace(/&quot;/g,`"`).replace(/&#039;/g,"'").replace(/&amp;/g,"&")
+    return str.replace(/&quot;/g,`"`).replace(/&#039;/g,"'").replace(/&amp;/g,"&").replace(/&uuml;/g,"ü")
   }
 
   render() {
@@ -136,12 +140,12 @@ export default class BarTrivia extends Component {
         {this.state.displayCounter?
           <>
             <div>{this.state.score}</div>
-            <div>{this.questionCounter+1}/{this.state.length}</div>
+            <Test>{this.questionCounter+1}/{this.state.length}</Test>
           </>
         :''}
         {this.state.displayQuestion?
           <>
-            <p className='test'>{this.replaceSymbols(this.state.activeQuestion.question)}</p>
+            <p>{this.replaceSymbols(this.state.activeQuestion.question)}</p>
             <ul>{listArr}</ul>
           </>
         :''
@@ -149,11 +153,11 @@ export default class BarTrivia extends Component {
         {this.state.displayResult?
           <>
             {this.state.answer?
-              <div className={styles.answer}>
+              <div>
                 <p>Congratulations! 10 points to Gryphindor</p>
               </div>
               :
-              <div className={styles.answer}>
+              <div>
                 <p>Sorry, the correct answer was {this.state.activeQuestion.correct_answer}</p>
               </div>}
           </>
