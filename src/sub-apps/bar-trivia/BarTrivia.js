@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const Test=styled.div`
-  background-color: blue;
+const Li=styled.li`
+  list-style-type: none;
+`;
+
+const FlexWrapper=styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50%;
 `;
 
 
@@ -16,7 +22,9 @@ export default class BarTrivia extends Component {
     score:0,
     displayResult:false,
     length:10,
-    displayCounter: false
+    displayCounter: false,
+    playAgain: false,
+    initial: true
   }
   questionCounter=0
 
@@ -34,24 +42,37 @@ export default class BarTrivia extends Component {
   }
 
   getQuestions = () => {
-  axios.get(`https://opentdb.com/api.php?amount=15&token=${this.state.token}`)
+  axios.get(`https://opentdb.com/api.php?amount=${this.state.length}&token=${this.state.token}`)
   .then(resp => {
     console.log(resp);
     this.setState({
       questions: resp.data.results,
       activeQuestion: resp.data.results[0],
       displayQuestion: true,
-      displayCounter: true
+      displayCounter: true,
+      initial: false,
+      playAgain: false
       })
     })
   }
 
   nextQuestion = (event) => {
     this.questionCounter++;
-    this.setState({
-      activeQuestion: this.state.questions[this.questionCounter],
-      displayQuestion: true
-    })
+    if(this.questionCounter>=this.state.length) {
+      this.questionCounter=0;
+      this.setState({
+        playAgain:true,
+        displayCounter:false,
+        displayQuestion:false
+      })
+    }
+    else{
+      this.setState({
+        activeQuestion: this.state.questions[this.questionCounter],
+        displayQuestion: true
+      })
+    }
+
   }
 
   correct = (event) => {
@@ -64,11 +85,11 @@ export default class BarTrivia extends Component {
       displayResult: true
     })
     setTimeout(() => {
-      this.nextQuestion()
       this.setState({
         displayQuestion: true,
         displayResult: false
       })
+      this.nextQuestion()
     },2000)
   }
 
@@ -81,11 +102,11 @@ export default class BarTrivia extends Component {
       displayResult: true
     })
     setTimeout(() => {
-      this.nextQuestion()
       this.setState({
         displayQuestion: true,
         displayResult: false
       })
+      this.nextQuestion()
     },2000)
   }
 
@@ -124,8 +145,9 @@ export default class BarTrivia extends Component {
     }
 
     return(
-      <div>
+      <FlexWrapper>
         <h1>Bar Triva</h1>
+        {this.state.initial?
         <form onSubmit={this.getQuestions}>
           <label>
             Difficulty
@@ -137,10 +159,11 @@ export default class BarTrivia extends Component {
           </label>
           <input type="submit" />
         </form>
+        :""}
+        <div>{this.state.score}</div>
         {this.state.displayCounter?
           <>
-            <div>{this.state.score}</div>
-            <Test>{this.questionCounter+1}/{this.state.length}</Test>
+            <div>{this.questionCounter+1}/{this.state.length}</div>
           </>
         :''}
         {this.state.displayQuestion?
@@ -162,7 +185,23 @@ export default class BarTrivia extends Component {
               </div>}
           </>
           : ''}
-      </div>
+          {this.state.playAgain?
+          <>
+            <div>Play again?</div>
+            <form onSubmit={this.getQuestions}>
+              <label>
+                Difficulty
+                <select onChange={this.handleChange} id = 'length'>
+                  <option value={10}>Short</option>
+                  <option value={20}>Medium</option>
+                  <option value={30}>Long</option>
+                </select>
+              </label>
+              <input type="submit" />
+            </form>
+          </> : ""}
+
+      </FlexWrapper>
     )
   }
 }
