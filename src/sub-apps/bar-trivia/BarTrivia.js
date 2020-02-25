@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
+import styles from './style.css';
 import axios from 'axios';
-
-// https://opentdb.com/api_token.php?command=request
 
 export default class BarTrivia extends Component {
   state = {
@@ -16,21 +15,18 @@ export default class BarTrivia extends Component {
   }
   questionCounter=0
 
-//   this.setState({
-//     token:resp.data.token
-//   })
-// });
   componentDidMount = () => {
     axios.get('https://opentdb.com/api_token.php?command=request').then(resp => {
       this.setState({
         token: resp.data.token
       })
     })
-}
 
-handleChange = (event) => {
-  this.setState({ [event.target.id]: event.target.value ,showComponent:true})
-}
+  }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.id]: event.target.value ,showComponent:true})
+  }
 
   getQuestions = () => {
   axios.get(`https://opentdb.com/api.php?amount=15&token=${this.state.token}`)
@@ -41,14 +37,12 @@ handleChange = (event) => {
       activeQuestion: resp.data.results[0],
       displayQuestion: true,
       displayCounter: true
+      })
     })
-  })
-
-}
+        console.log(styles);
+  }
 
   nextQuestion = (event) => {
-    // console.log(this.state.activeQuestion);
-    // event.preventDefault();
     this.questionCounter++;
     this.setState({
       activeQuestion: this.state.questions[this.questionCounter],
@@ -95,7 +89,6 @@ handleChange = (event) => {
     return str.replace(/&quot;/g,`"`).replace(/&#039;/g,"'").replace(/&amp;/g,"&")
   }
 
-
   render() {
     let listArr=[];
     if (this.state.activeQuestion.type==="multiple") {
@@ -108,7 +101,6 @@ handleChange = (event) => {
           }
         }
       }
-
       else {
         for(let i = 0; i<3;i++) {
           if (i===randPosition) {
@@ -119,7 +111,6 @@ handleChange = (event) => {
         }
       }
     }
-
     else {
       if (this.state.activeQuestion.correct_answer==='True') {
         listArr.push(<li onClick={this.correct}>True</li>, <li onClick={this.incorrect}>False</li>)
@@ -127,7 +118,6 @@ handleChange = (event) => {
         listArr.push(<li onClick={this.incorrect}>True</li>, <li onClick={this.correct}>False</li>)
       }
     }
-
 
     return(
       <div>
@@ -145,30 +135,29 @@ handleChange = (event) => {
         </form>
         {this.state.displayCounter?
           <>
-        <div>{this.state.score}</div>
-        <div>{this.questionCounter+1}/{this.state.length}</div>
+            <div>{this.state.score}</div>
+            <div>{this.questionCounter+1}/{this.state.length}</div>
           </>
         :''}
         {this.state.displayQuestion?
           <>
-            <p>{this.state.activeQuestion.question.replace(/&quot;/g,`"`).replace(/&#039;/g,"'").replace(/&amp;/g,"'")}</p>
+            <p className='test'>{this.replaceSymbols(this.state.activeQuestion.question)}</p>
             <ul>{listArr}</ul>
           </>
         :''
-      }
-
-      {this.state.displayResult?
-      <>
-        {this.state.answer?
-          <div>
-            <p>Congratulations! 10 points to Gryphindor</p>
-          </div>
-          :
-          <div>
-            <p>Sorry, the correct answer was {this.state.activeQuestion.correct_answer}</p>
-          </div>}
-      </> : ''}
-
+        }
+        {this.state.displayResult?
+          <>
+            {this.state.answer?
+              <div className={styles.answer}>
+                <p>Congratulations! 10 points to Gryphindor</p>
+              </div>
+              :
+              <div className={styles.answer}>
+                <p>Sorry, the correct answer was {this.state.activeQuestion.correct_answer}</p>
+              </div>}
+          </>
+          : ''}
       </div>
     )
   }
