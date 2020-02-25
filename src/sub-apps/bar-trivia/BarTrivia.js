@@ -2,14 +2,54 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const Li=styled.li`
+const Ul=styled.ul`
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const Li=styled.li`
+  font-size: 20px;
+  padding: 0 0 1em 0;
+  margin: 0;
+  transition-duration: 0.2s;
+
+  &:hover {
+  transform:scale(1.2);
+}
 `;
 
 const FlexWrapper=styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 50%;
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+`;
+
+const Form=styled.form`
+  margin: 1em;
+`;
+
+const Option=styled.option`
+  font-size: 30px;
+`;
+
+const Select=styled.select`
+  font-size: 30px;
+  margin: .5em;
+  padding: 0 0 0 z.5em;
+`;
+
+const Label=styled.label`
+  padding: .5em;
+`;
+
+const Input=styled.input`
+  font-size:30px;
+
 `;
 
 
@@ -34,7 +74,6 @@ export default class BarTrivia extends Component {
         token: resp.data.token
       })
     })
-
   }
 
   handleChange = (event) => {
@@ -120,27 +159,27 @@ export default class BarTrivia extends Component {
       let randPosition = Math.floor(Math.random()*4)
       if(randPosition===3){
         for(let i = 0; i<3;i++) {
-          listArr.push(<li onClick={this.incorrect}>{this.replaceSymbols(this.state.activeQuestion.incorrect_answers[i])}</li>)
+          listArr.push(<Li onClick={this.incorrect}>{this.replaceSymbols(this.state.activeQuestion.incorrect_answers[i])}</Li>)
           if (i===2) {
-            listArr.push(<li onClick={this.correct}>{this.replaceSymbols(this.state.activeQuestion.correct_answer)}</li>)
+            listArr.push(<Li onClick={this.correct}>{this.replaceSymbols(this.state.activeQuestion.correct_answer)}</Li>)
           }
         }
       }
       else {
         for(let i = 0; i<3;i++) {
           if (i===randPosition) {
-            listArr.push(<li onClick={this.correct}>{this.replaceSymbols(this.state.activeQuestion.correct_answer)}</li>,<li onClick={this.incorrect}>{this.replaceSymbols(this.state.activeQuestion.incorrect_answers[i])}</li>)
+            listArr.push(<Li onClick={this.correct}>{this.replaceSymbols(this.state.activeQuestion.correct_answer)}</Li>,<Li onClick={this.incorrect}>{this.replaceSymbols(this.state.activeQuestion.incorrect_answers[i])}</Li>)
           } else {
-            listArr.push(<li onClick={this.incorrect}>{this.replaceSymbols(this.state.activeQuestion.incorrect_answers[i])}</li>)
+            listArr.push(<Li onClick={this.incorrect}>{this.replaceSymbols(this.state.activeQuestion.incorrect_answers[i])}</Li>)
           }
         }
       }
     }
     else {
       if (this.state.activeQuestion.correct_answer==='True') {
-        listArr.push(<li onClick={this.correct}>True</li>, <li onClick={this.incorrect}>False</li>)
+        listArr.push(<Li onClick={this.correct}>True</Li>, <Li onClick={this.incorrect}>False</Li>)
       } else {
-        listArr.push(<li onClick={this.incorrect}>True</li>, <li onClick={this.correct}>False</li>)
+        listArr.push(<Li onClick={this.incorrect}>True</Li>, <Li onClick={this.correct}>False</Li>)
       }
     }
 
@@ -148,28 +187,28 @@ export default class BarTrivia extends Component {
       <FlexWrapper>
         <h1>Bar Triva</h1>
         {this.state.initial?
-        <form onSubmit={this.getQuestions}>
-          <label>
+        <Form onSubmit={this.getQuestions}>
+          <Label>
             Difficulty
-            <select onChange={this.handleChange} id = 'length'>
-              <option value={10}>Short</option>
-              <option value={20}>Medium</option>
-              <option value={30}>Long</option>
-            </select>
-          </label>
-          <input type="submit" />
-        </form>
+            <Select onChange={this.handleChange} id = 'length'>
+              <Option value={10}>Short</Option>
+              <Option value={20}>Medium</Option>
+              <Option value={30}>Long</Option>
+            </Select>
+          </Label>
+          <Input type="submit" />
+        </Form>
         :""}
-        <div>{this.state.score}</div>
+        <div>Score: {this.state.score}</div>
         {this.state.displayCounter?
           <>
-            <div>{this.questionCounter+1}/{this.state.length}</div>
+            <FlexWrapper>{this.questionCounter+1}/{this.state.length}</FlexWrapper>
           </>
         :''}
         {this.state.displayQuestion?
           <>
             <p>{this.replaceSymbols(this.state.activeQuestion.question)}</p>
-            <ul>{listArr}</ul>
+            <Ul>{listArr}</Ul>
           </>
         :''
         }
@@ -181,7 +220,7 @@ export default class BarTrivia extends Component {
               </div>
               :
               <div>
-                <p>Sorry, the correct answer was {this.state.activeQuestion.correct_answer}</p>
+                <p>Sorry, the correct answer was {this.replaceSymbols(this.state.activeQuestion.correct_answer)}</p>
               </div>}
           </>
           : ''}
@@ -189,15 +228,15 @@ export default class BarTrivia extends Component {
           <>
             <div>Play again?</div>
             <form onSubmit={this.getQuestions}>
-              <label>
+              <Label>
                 Difficulty
-                <select onChange={this.handleChange} id = 'length'>
-                  <option value={10}>Short</option>
-                  <option value={20}>Medium</option>
-                  <option value={30}>Long</option>
-                </select>
-              </label>
-              <input type="submit" />
+                <Select onChange={this.handleChange} id = 'length'>
+                  <Option value={10}>Short</Option>
+                  <Option value={20}>Medium</Option>
+                  <Option value={30}>Long</Option>
+                </Select>
+              </Label>
+              <Input type="submit" />
             </form>
           </> : ""}
 
