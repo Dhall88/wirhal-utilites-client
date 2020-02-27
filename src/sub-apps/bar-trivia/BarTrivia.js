@@ -64,7 +64,8 @@ export default class BarTrivia extends Component {
     length:10,
     displayCounter: false,
     playAgain: false,
-    initial: true
+    initial: true,
+    currentHighScore:0
   }
   questionCounter=0
 
@@ -73,6 +74,14 @@ export default class BarTrivia extends Component {
       this.setState({
         token: resp.data.token
       })
+    })
+    axios.get('https://localhost:3000/barscores/1').then(resp => {
+      console.log(resp);
+      if(resp!=null) {
+      this.setState({
+        currentHighScore: resp;
+      })
+    }
     })
   }
 
@@ -94,6 +103,20 @@ export default class BarTrivia extends Component {
       })
     })
   }
+
+  updateHighScore = (event) => {
+  event.preventDefault();
+  if(this.state.score>this.state.currentHighScore) {
+    fetch('https://localhost:3000/barscores/1', {
+      body: JSON.stringify({score: this.state.score}),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+}
 
   nextQuestion = (event) => {
     this.questionCounter++;
@@ -151,6 +174,10 @@ export default class BarTrivia extends Component {
 
   replaceSymbols = (str) => {
     return str.replace(/&quot;/g,`"`).replace(/&#039;/g,"'").replace(/&amp;/g,"&").replace(/&uuml;/g,"ü")
+  }
+
+  componentWillUnmount() {
+    this.updateHighScore
   }
 
   render() {
