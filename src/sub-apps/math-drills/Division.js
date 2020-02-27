@@ -1,4 +1,62 @@
 import React, { Component } from 'react'
+import styled from 'styled-components';
+import axios from 'axios';
+
+const Ul=styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const Li=styled.li`
+  font-size: 20px;
+  padding: 0 0 1em 0;
+  margin: 0;
+  transition-duration: 0.2s;
+
+  &:hover {
+  transform:scale(1.2);
+}
+`;
+
+const FlexWrapper=styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+`;
+
+const Form=styled.form`
+  margin: 1em;
+`;
+
+const Option=styled.option`
+  font-size: 30px;Aa
+`;
+
+const Select=styled.select`
+  font-size: 30px;
+  margin: .5em;
+  padding: 0 0 0 z.5em;
+`;
+
+const Label=styled.label`
+  font-size: 30px;
+  padding: .5em;
+`;
+
+const Input=styled.input`
+  font-size:30px;
+
+`;
+
+const Button=styled.button`
+  font-size:30px;
+
+`;
 
 export default class Division extends Component {
   state = {
@@ -57,23 +115,30 @@ export default class Division extends Component {
   }
   render() {
     return(
-      <>
+      <FlexWrapper>
       <h1>Division</h1>
+      <div>Score</div>
       <div>{this.state.score}</div>
-      <button onClick={this.questionArr}></button>
-      <ul>
+      <Button onClick={this.questionArr}>Get a new question</Button>
+      <Ul>
         {this.state.numArr.map((num)=> {
-          return <li>{num}</li>
+          return <Li>{num}</Li>
         })}
-      </ul>
-      <form onSubmit={this.check}>
-        <input onChange={this.handleChange} type="text" value={this.state.answer} id="answer" />
-        <input onChange={this.handleChange} type="text" value={this.state.remainder} id="remainder" />
-        <input type="submit" />
+      </Ul>
+      <form autoComplete='off' onSubmit={this.check}>
+        <Label>
+        Whole Number
+        <Input onChange={this.handleChange} type="text" id="answer" />
+        </Label>
+        <Label>
+        Remainder
+        <Input onChange={this.handleChange} type="text" id="remainder" />
+        </Label>
+        <Input type="submit" />
       </form>
       {this.state.dispHorray?<div>YAY</div>:''}
-      {this.state.dispTryAgain?<div>Try again</div>:'2'}
-    </>
+      {this.state.dispTryAgain?<div>Try again</div>:''}
+    </FlexWrapper>
     )
   }
 }

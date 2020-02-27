@@ -21,6 +21,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "simplex-noise": "^2.4.0",
+    "styled-components": "^5.0.1",
     "three-orbitcontrols": "^2.110.3",
     "three-pointer-lock-controls": "^1.0.0",
     "three-pointerlock": "0.0.2"

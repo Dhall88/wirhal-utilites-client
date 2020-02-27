@@ -7,7 +7,6 @@ import MathDrills from './sub-apps/math-drills/MathDrills'
 import Matching from './sub-apps/matching/Board'
 import Adventure from './sub-apps/adventure/Adventure'
 import Weather from './sub-apps/weather/Weather'
-import Chess from './sub-apps/chess/Chess'
 // import BlockQuest from '.sub-apps/block-quest/main'
 // import SignUpForm from './sub-apps/utilities/SignUpForm';
 // import LogInForm from './sub-apps/utilities/LogInForm';
@@ -88,14 +87,6 @@ export default class MainRouter extends Component {
 							>
 							Weather
 							</NavLink>
-							<NavLink
-							exact
-							to="/chess"
-							activeClassName="is-active"
-							className="nav-item m-2"
-							>
-							Chess
-							</NavLink>
 						</nav>
 					</header>
 					<div
@@ -110,7 +101,6 @@ export default class MainRouter extends Component {
 						<Route path="/matching" component={Matching} />
 						<Route path="/adventure" component={Adventure} />
 						<Route path="/weather" component={Weather} />
-						<Route path="/chess" component={Chess} />
 				</HashRouter>
 			</React.Fragment>
 		);

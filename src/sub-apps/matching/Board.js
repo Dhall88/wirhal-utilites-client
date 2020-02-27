@@ -3,7 +3,6 @@ import Flippy, {FrontSide,BackSide} from 'react-flippy';
 // import SquareBack from './SquareBack.js'
 // import SquareFront from './SquareFront.js'
 import Square from './Square.js'
-import '../../css/matching.css'
 
 export default class Board extends Component {
   state={

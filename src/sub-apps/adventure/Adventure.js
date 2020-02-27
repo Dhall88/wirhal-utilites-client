@@ -11,6 +11,12 @@ import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockCont
 let simplex = new SimplexNoise(4);
 
 export default class Adventure extends Component {
+  state={
+    input:''
+  }
+  handleChange = (event) => {
+    this.setState({ [event.target.id]: event.target.value})
+  }
 
   componentDidMount() {
 
@@ -25,7 +31,7 @@ export default class Adventure extends Component {
           const nn = (j*(data.height+1)+i)
           const col = data.data[n*4] // the red channel
           const v1 = geo.vertices[nn]
-          console.log('in mesh');
+          // console.log('in mesh');
           v1.z = this.map(col,0,255,-10,10) //map from 0:255 to -10:10
           if(v1.z > 2.5) v1.z *= 1.3 //exaggerate the peaks
           // v1.x += map(Math.random(),0,1,-0.5,0.5) //jitter x
@@ -80,7 +86,7 @@ export default class Adventure extends Component {
       var camera = new THREE.PerspectiveCamera( 75, 600 / 600, 0.1, 1000 );
 
       // camera.position.z=-10;
-      camera.position.y=1
+      camera.position.y=10
 
       var renderer = new THREE.WebGLRenderer();
       renderer.setSize( 600, 600 );
@@ -91,8 +97,6 @@ scene.add( light );
       this.refs.div.appendChild( renderer.domElement );
 
       /////////////////////////////////
-
-      var controls = new PointerLockControls( camera, renderer.domElement);
 
 
       // var controls = new OrbitControls( camera, renderer.domElement );
@@ -106,20 +110,16 @@ scene.add( light );
       var animate = function () {
         requestAnimationFrame( animate );
         renderer.render( scene, camera );
-        console.log('in animate');
+        // console.log('in animate');
         // camera.position.x+=0.01
         // camera.position.y+=0.01
         // controls.update();
-        controls.change();
-
-
-        // camera.position.z-=0.02
-        // camera.position.x+=0.01
-        controls.moveForward(.01)
-        console.log(camera.position.z);
+        camera.position.y+=.01
+        camera.rotation.y+=.01
+        // console.log(camera.position.z);
         // console.log(camera.position.x);
         // console.log(geo.vertices);
-        console.log(geo.vertices[camera.position.z]);
+        // console.log(geo.vertices[camera.position.z]);
       }
 
       animate();
@@ -172,17 +172,25 @@ generateTexture = () => {
     return c.getImageData(0,0,canvas.width,canvas.height)
 }
 
+  keyPressed =(event) => {
+    console.log(event.charCode);
+  }
+
 
   render() {
     return (
-      <>
+      <div >
       <canvas ref="canvas" width={100} height={100}/>
       <div ref="div"/>
-      </>
+      <input onChange={this.handleChange}
+       onKeyPress={this.keyPressed}
+       value={this.state.input} />
+      </div>
     )
   }
 }
 
+// <input type="text" onKeyPress={this.keyDown} />
 
 //     var scene = new THREE.Scene();
 //     var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);

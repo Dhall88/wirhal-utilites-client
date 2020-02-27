@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Subtraction extends Component {
+export default class OrderOfOperations extends Component {
   state = {
     numArr:[],
     score:0,

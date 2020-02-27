@@ -1,9 +1,0 @@
-.chart-container {
-  height: 300px;
-  width: 600px;
-}
-
-.chart-flex {
-  display:flex;
-  flex-wrap: nowrap;
-}

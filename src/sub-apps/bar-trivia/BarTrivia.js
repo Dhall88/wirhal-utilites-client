@@ -34,7 +34,7 @@ const Form=styled.form`
 `;
 
 const Option=styled.option`
-  font-size: 30px;
+  font-size: 30px;Aa
 `;
 
 const Select=styled.select`

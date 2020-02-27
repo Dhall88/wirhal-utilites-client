@@ -1,4 +1,61 @@
 import React, { Component } from 'react'
+import styled from 'styled-components';
+import axios from 'axios';
+
+const Ul=styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const Li=styled.li`
+  font-size: 20px;
+  padding: 0 0 1em 0;
+  margin: 0;
+  transition-duration: 0.2s;
+
+  &:hover {
+  transform:scale(1.2);
+}
+`;
+
+const FlexWrapper=styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+`;
+
+const Form=styled.form`
+  margin: 1em;
+`;
+
+const Option=styled.option`
+  font-size: 30px;Aa
+`;
+
+const Select=styled.select`
+  font-size: 30px;
+  margin: .5em;
+  padding: 0 0 0 z.5em;
+`;
+
+const Label=styled.label`
+  padding: .5em;
+`;
+
+const Input=styled.input`
+  font-size:30px;
+
+`;
+
+const Button=styled.button`
+  font-size:30px;
+
+`;
 
 export default class Subtraction extends Component {
   state = {
@@ -56,22 +113,23 @@ export default class Subtraction extends Component {
 
   render() {
     return(
-      <>
+      <FlexWrapper>
         <h1>Subtraction</h1>
+        <div>Score</div>
         <div>{this.state.score}</div>
-        <button onClick={this.questionArr}></button>
-        <ul>
+        <Button onClick={this.questionArr}>Get a new question</Button>
+        <Ul>
           {this.state.numArr.map((num)=> {
-            return <li>{num}</li>
+            return <Li>{num}</Li>
           })}
-        </ul>
+        </Ul>
         <form onSubmit={this.check}>
-          <input onChange={this.handleChange} type="text" id="answer" />
-          <input type="submit" />
+          <Input onChange={this.handleChange} type="text" id="answer" />
+          <Input type="submit" />
         </form>
         {this.state.dispHorray?<div>YAY</div>:''}
-        {this.state.dispTryAgain?<div>Try again</div>:'z'}
-      </>
+        {this.state.dispTryAgain?<div>Try again</div>:''}
+      </FlexWrapper>
     )
   }
 }
