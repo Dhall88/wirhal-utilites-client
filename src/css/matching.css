@@ -1,0 +1,49 @@
+/*- Card body -*/
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+}
+
+.card-body {
+ width: 200px;
+ height: 200px;
+ transform-style: preserve-3d;
+ transition: all .7s linear;
+}
+
+img {
+  width: 200px;
+}
+
+/*- Flipping the card -*/
+.flipped .card-body {
+ transform: rotateY(180deg);
+}
+
+/*- Card sides -*/
+.card-side {
+ position: absolute;
+ top: 0;
+ overflow: hidden;
+ width: 200px;
+ height: 200px;
+ color: #212121;
+ background-color: #fff;
+ backface-visibility: hidden;
+ box-shadow: 0 10px 35px rgba(50,50,93,.1),0 2px 15px rgba(0,0,0,.07);
+}
+
+.side-front {
+display: flex;
+justify-content:center;
+align-items: center;2
+}
+
+/*- Backside -*/
+.side-back {
+ z-index: 2;
+ /* padding: 32px; */
+ text-align: center;
+ transform: rotateY(180deg);
+}

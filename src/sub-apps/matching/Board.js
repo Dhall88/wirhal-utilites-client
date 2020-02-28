@@ -1,8 +1,20 @@
 import React, { Component } from 'react'
 import Flippy, {FrontSide,BackSide} from 'react-flippy';
+import styled from 'styled-components';
 // import SquareBack from './SquareBack.js'
 // import SquareFront from './SquareFront.js'
 import Square from './Square.js'
+import '../../css/matching.css'
+
+const FlexWrapper=styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+`;
 
 export default class Board extends Component {
   state={
@@ -103,7 +115,7 @@ export default class Board extends Component {
   render() {
 
     return(
-      <>
+      <FlexWrapper>
       <form onSubmit={this.handleSubmit}>
         <label>
           Difficulty
@@ -121,8 +133,8 @@ export default class Board extends Component {
         {this.state.squares}
         </div>
         {this.state.totalMatches===this.state.matches?
-          <div onClick={this.playAgain}>PLAY AGAIN</div>:''}2
-      </>
+          <div onClick={this.playAgain}>PLAY AGAIN</div>:''}
+      </FlexWrapper>
     )
   }
 }

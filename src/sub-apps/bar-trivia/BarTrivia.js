@@ -75,11 +75,15 @@ export default class BarTrivia extends Component {
         token: resp.data.token
       })
     })
-    axios.get('https://localhost:3000/barscores/1').then(resp => {
+    axios.get('http://localhost:3000/bar_scores/3').then(resp => {
       console.log(resp);
-      if(resp!=null) {
+      if(resp!=undefined) {
       this.setState({
-        currentHighScore: resp;
+        currentHighScore: resp.data.score
+      })
+    } else {
+      this.setState({
+        currentHighScore: 0
       })
     }
     })
@@ -90,7 +94,8 @@ export default class BarTrivia extends Component {
   }
 
   getQuestions = () => {
-  axios.get(`https://opentdb.com/api.php?amount=${this.state.length}&token=${this.state.token}`)
+    this.updateHighScore()
+  axios.get(`http://opentdb.com/api.php?amount=${this.state.length}&token=${this.state.token}`)
   .then(resp => {
     console.log(resp);
     this.setState({
@@ -99,21 +104,25 @@ export default class BarTrivia extends Component {
       displayQuestion: true,
       displayCounter: true,
       initial: false,
-      playAgain: false
+      playAgain: false,
+      score: 0
       })
     })
   }
 
-  updateHighScore = (event) => {
-  event.preventDefault();
+  updateHighScore = () => {
+  console.log('in bar update');
   if(this.state.score>this.state.currentHighScore) {
-    fetch('https://localhost:3000/barscores/1', {
+    fetch('http://localhost:3000/bar_scores/3', {
       body: JSON.stringify({score: this.state.score}),
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       }
+    })
+    this.setState({
+      currentHighScore: this.state.score
     })
   }
 }
@@ -177,7 +186,7 @@ export default class BarTrivia extends Component {
   }
 
   componentWillUnmount() {
-    this.updateHighScore
+    this.updateHighScore();
   }
 
   render() {
@@ -226,6 +235,7 @@ export default class BarTrivia extends Component {
           <Input type="submit" />
         </Form>
         :""}
+        <div>Current High Score: {this.state.currentHighScore}</div>
         <div>Score: {this.state.score}</div>
         {this.state.displayCounter?
           <>
