@@ -1,6 +1,19 @@
 import React, {Component} from 'react'
 import styled from 'styled-components';
 import BarChart from './BarChart'
+import baseballCap from './images/baseball-cap.png'
+import coat from './images/coat.png'
+import longSleeveShirt from './images/long-sleeve-shirt.png'
+import rainBoots from './images/rain-boots.jpeg'
+import raincoat from './images/raincoat.jpg'
+import shorts from './images/shorts.jpg'
+import sneakers from './images/sneakers.png'
+import sunglasses from './images/sunglasses.png'
+import sweater from './images/sweater.png'
+import tShirt from './images/t-shirt.png'
+import umbrella from './images/umbrella.jpg'
+import windBreaker from './images/windbreaker.png'
+import winterHat from './images/winter-hat.png'
 
 const FlexWrapper=styled.div`
   display: flex;
@@ -18,6 +31,7 @@ export default class Weather extends Component {
     activeZip:'',
     displayCharts:false
   }
+  warmArr=[baseballCap, coat, longSleeveShirt, rainBoots, raincoat, shorts, sneakers, sunglasses, sweater, tShirt, umbrella, windBreaker, winterHat]
 
   componentDidMount = () => {
     fetch('https://localhost:3000/zips')
@@ -77,6 +91,10 @@ deleteZip = (id, index) => {
    })
 }
 
+clothingSelection = () => {
+
+}
+
 
 
   render() {
@@ -99,6 +117,11 @@ deleteZip = (id, index) => {
         <BarChart dataType={['main','humidity']} label='Humidity' bulkData={this.state.data}/>
       </FlexWrapper>
       :''}
+        {this.warmArr.map((item) => {
+          return <img src={item}></img>
+
+
+        })}
       </>
     )
   }
