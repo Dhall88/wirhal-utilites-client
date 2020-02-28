@@ -115,6 +115,7 @@ export default class Addition extends Component {
     return(
       <FlexWrapper>
         <h1>Addition</h1>
+        
         <div>Score</div>
         <div>{this.state.score}</div>
         <Button onClick={this.questionArr}>Get a new question</Button>
