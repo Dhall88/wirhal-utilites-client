@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
+import Audio from './sub-apps/utilities/Audio'
 import Home from './sub-apps/utilities/Home';
 import BarTrivia from './sub-apps/bar-trivia/BarTrivia';
 import MathDrills from './sub-apps/math-drills/MathDrills'
@@ -109,7 +110,9 @@ export default class MainRouter extends Component {
 						<Route path="/adventure" component={Adventure} />
 						<Route path="/weather" component={Weather} />
 				</HashRouter>
+				<Audio source='https://vgmdownloads.com/soundtracks/super-mario-yoshis-island-original-sound-version/lqomnkkv/03.%20Yoshi%20Island.mp3'/>
 			</React.Fragment>
 		);
 	}
 }
+// <Audio source='http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Coin_Sound_Effect.mp3'/>

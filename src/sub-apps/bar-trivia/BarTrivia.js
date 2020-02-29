@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Audio from '../utilities/Audio.js'
 import axios from 'axios';
 
 const Ul=styled.ul`
@@ -161,7 +162,7 @@ export default class BarTrivia extends Component {
         displayResult: false
       })
       this.nextQuestion()
-    },2000)
+    },1000)
   }
 
   incorrect = (event) => {
@@ -253,7 +254,7 @@ export default class BarTrivia extends Component {
           <>
             {this.state.answer?
               <div>
-                <p>Congratulations! 10 points to Gryphindor</p>
+                <Audio source='http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Coin_Sound_Effect.mp3'/>
               </div>
               :
               <div>

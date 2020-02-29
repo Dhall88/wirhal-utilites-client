@@ -16,6 +16,7 @@ import windBreaker from './images/windbreaker.png'
 import winterHat from './images/winter-hat.png'
 
 const Ul=styled.ul`
+  display: flex;
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -23,7 +24,7 @@ const Ul=styled.ul`
 
 const Li=styled.li`
   font-size: 20px;
-  padding: 0 0 1em 0;
+  padding: 0 2em 1em 0;
   margin: 0;
   transition-duration: 0.2s;
 
@@ -35,7 +36,14 @@ const Li=styled.li`
 const FlexWrapper=styled.div`
   display: flex;
   justify-content: center;
+  height: 300px;
+  background-color: rgb(200,199,216);
+`;
+const ClothingWrapper=styled.div`
+  display: flex;
+  justify-content: center;
   height: 400px;
+  margin: 2em 0 0 0;
 `;
 
 const FlexWrapperColumn=styled.div`
@@ -49,7 +57,7 @@ const Form=styled.form`
 `;
 
 const Option=styled.option`
-  font-size: 30px;Aa
+  font-size: 30px;
 `;
 
 const Select=styled.select`
@@ -168,9 +176,9 @@ setActiveZip = (event) => {
     activeZip: event.target.id
   })
 
-  setTimeout(()=>{
-    this.handleSubmit(event)
-  },200)
+  // setTimeout(()=>{
+  //   this.handleSubmit(event)
+  // },200)
 }
 
 clothingSelection = () => {
@@ -255,11 +263,11 @@ clothingSelection = () => {
         <BarChart dataType={['main','humidity']} label='Humidity' bulkData={this.state.data}/>
       </FlexWrapper>
       :''}
-      <FlexWrapper>
+      <ClothingWrapper>
         {this.state.clothesArr.map((clothing)=> {
         return <div><img src={clothing} /></div>
       })}
-      </FlexWrapper>
+      </ClothingWrapper>
       </FlexWrapperColumn>
     )
   }

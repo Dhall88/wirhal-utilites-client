@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // import SquareBack from './SquareBack.js'
 // import SquareFront from './SquareFront.js'
 import Square from './Square.js'
+import Audio from '../utilities/Audio.js'
 import '../../css/matching.css'
 
 const FlexWrapper=styled.div`
@@ -14,6 +15,34 @@ const FlexWrapper=styled.div`
   margin: auto;
   text-align: center;
   font-size: 30px;
+`;
+
+const Form=styled.form`
+  margin: 1em;
+`;
+
+const Option=styled.option`
+  font-size: 30px;Aa
+`;
+
+const Select=styled.select`
+  font-size: 30px;
+  margin: .5em;
+  padding: 0 0 0 z.5em;
+`;
+
+const Label=styled.label`
+  padding: .5em;
+`;
+
+const Input=styled.input`
+  font-size:30px;
+
+`;
+
+const Button=styled.button`
+  font-size:30px;
+
 `;
 
 export default class Board extends Component {
@@ -94,6 +123,11 @@ export default class Board extends Component {
               refIndex:[],
               matches: this.state.matches+1
             })
+            setTimeout(()=> {
+              this.setState({
+                matchBoolean: false
+              })
+            },1000)
           } else {
             setTimeout(()=>{
             this[`childRef${refs[0]}`].current.flip(true)
@@ -117,19 +151,19 @@ export default class Board extends Component {
     return(
       <FlexWrapper>
       <h2>Matching</h2>
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <Form onSubmit={this.handleSubmit}>
+        <Label>
           Difficulty
-          <select onChange={this.handleChange} id = 'difficulty'>
-            <option value={8}>Easy</option>
-            <option value={12}>Medium</option>
-            <option value={16}>Hard</option>
-          </select>
-          <input type='submit' />
-        </label>
-        </form>
+          <Select onChange={this.handleChange} id = 'difficulty'>
+            <Option value={8}>Easy</Option>
+            <Option value={12}>Medium</Option>
+            <Option value={16}>Hard</Option>
+          </Select>
+          <Input type='submit' />
+        </Label>
+        </Form>
         {this.state.matchBoolean===true?
-        <div classNamme='matched'>YOU GOT A MATCH</div>:''}
+        <div classNamme='matched'><Audio source='http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Coin_Sound_Effect.mp3'/></div>:''}
         <div  className='flex'>
         {this.state.squares}
         </div>

@@ -108,7 +108,7 @@ export default class MathDrills extends Component {
           <Type difficulty={this.state.difficulty}/>
           :''
         }
-        <Audio />
+
 
       </FlexWrapper>
     )

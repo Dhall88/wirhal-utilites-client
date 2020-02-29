@@ -86,7 +86,7 @@ export default class Adventure extends Component {
       var camera = new THREE.PerspectiveCamera( 75, 600 / 600, 0.1, 1000 );
 
       // camera.position.z=-10;
-      camera.position.y=10
+      camera.position.y=5
 
       var renderer = new THREE.WebGLRenderer();
       renderer.setSize( 600, 600 );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
+import Audio from '../utilities/Audio.js'
 import axios from 'axios';
 
 const Ul=styled.ul`
@@ -109,7 +110,7 @@ export default class Multiplication extends Component {
         this.setState({
           dispHorray: false
         })
-        this.questionArr()},3000)
+        this.questionArr()},1000)
     } else {
       this.setState({
         dispTryAgain: true
@@ -153,7 +154,7 @@ export default class Multiplication extends Component {
         <Input onChange={this.handleChange} type="text" id="answer" />
         <Input type="submit" />
       </form>
-      {this.state.dispHorray?<div>YAY</div>:''}
+      {this.state.dispHorray?<div><Audio source='http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Coin_Sound_Effect.mp3'/></div>:''}
       {this.state.dispTryAgain?<div>Try again</div>:''}
     </FlexWrapper>
     )

@@ -3,6 +3,16 @@ import React, { Component } from "react"
 export default class Audio extends Component {
   componentDidMount() {
     const audioEl = document.getElementsByClassName("audio-element")[0]
+    audioEl.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+    audioEl.play()
+  }
+
+  componentDidUpdate() {
+    console.log('in update');
+    const audioEl = document.getElementsByClassName("audio-element")[0]
     audioEl.play()
   }
 
@@ -10,7 +20,7 @@ export default class Audio extends Component {
     return (
       <div>
         <audio className="audio-element">
-          <source src="https://api.coderrocketfuel.com/assets/pomodoro-times-up.mp3"></source>
+          <source src={this.props.source}></source>
         </audio>
       </div>
     )
