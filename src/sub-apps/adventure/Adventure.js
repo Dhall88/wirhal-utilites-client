@@ -83,13 +83,13 @@ export default class Adventure extends Component {
       mesh.rotation.x = -90*(Math.PI/180)
 
       var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera( 75, 600 / 600, 0.1, 1000 );
+      var camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 1000 );
 
       // camera.position.z=-10;
-      camera.position.y=5
+      camera.position.y=2
 
       var renderer = new THREE.WebGLRenderer();
-      renderer.setSize( 600, 600 );
+      renderer.setSize( 1600, 800 );
       scene.add(mesh)
       var light = new THREE.DirectionalLight( 0xffffff, 1 );
 light.position.set( 10, 10, 10 );
@@ -114,8 +114,8 @@ scene.add( light );
         // camera.position.x+=0.01
         // camera.position.y+=0.01
         // controls.update();
-        camera.position.y+=.01
-        camera.rotation.y+=.01
+        camera.position.y+=.005
+        camera.rotation.y+=.005
         // console.log(camera.position.z);
         // console.log(camera.position.x);
         // console.log(geo.vertices);
