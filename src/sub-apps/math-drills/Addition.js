@@ -66,6 +66,21 @@ export default class Addition extends Component {
     dispTryAgain: false
   }
 
+  componentDidMount() {
+    axios.get('http://localhost:3000/addition_scores/1').then(resp => {
+      console.log(resp);
+      if(resp!=undefined) {
+      this.setState({
+        score: resp.data.score
+      })
+    } else {
+      this.setState({
+        score: 0
+      })
+    }
+    })
+  }
+
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value})
   }
@@ -82,7 +97,8 @@ export default class Addition extends Component {
     console.log(arr);
   }
 
-  check = () => {
+  check = (event) => {
+    event.preventDefault()
     let answer = 0;
     for(let i = 0; i<this.state.numArr.length; i++) {
       answer+=this.state.numArr[i]
@@ -111,11 +127,25 @@ export default class Addition extends Component {
     }
   }
 
+  saveScore = () => {
+    fetch('http://localhost:3000/addition_scores/1', {
+      body: JSON.stringify({score: this.state.score}),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.saveScore()
+  }
+
   render() {
     return(
       <FlexWrapper>
         <h1>Addition</h1>
-        
         <div>Score</div>
         <div>{this.state.score}</div>
         <Button onClick={this.questionArr}>Get a new question</Button>

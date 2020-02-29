@@ -68,6 +68,21 @@ export default class Division extends Component {
     dispTryAgain: false
   }
 
+  componentDidMount() {
+    axios.get('http://localhost:3000/division_scores/1').then(resp => {
+      console.log(resp);
+      if(resp!=undefined) {
+      this.setState({
+        score: resp.data.score
+      })
+    } else {
+      this.setState({
+        score: 0
+      })
+    }
+    })
+  }
+
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value })
   }
@@ -113,6 +128,22 @@ export default class Division extends Component {
       },3000)
     }
   }
+
+  saveScore = () => {
+    fetch('http://localhost:3000/division_scores/1', {
+      body: JSON.stringify({score: this.state.score}),
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.saveScore()
+  }
+
   render() {
     return(
       <FlexWrapper>

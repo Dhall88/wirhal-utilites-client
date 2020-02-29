@@ -92,11 +92,17 @@ export default class Weather extends Component {
   sunArr=[sunglasses]
 
   componentDidMount = () => {
-    // fetch('https://localhost:3000/zips')
-    // .then(response => response.json())
-    // .then(json => this.setState({zips: json}))
-    // .catch(error => console.error(error))
+    this.getZips()
   }
+
+  getZips = () => {
+    fetch('http://localhost:3000/zips')
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      this.setState({zips: json})
+  })
+}
 
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value })
@@ -115,32 +121,34 @@ export default class Weather extends Component {
 
             }))
 
-    // fetch('localhost:3000/zips', {
-    //   body: JSON.stringify({
-    //     zip: this.state.activeZip,
-    //   }),
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json, text/plain, */*',
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    // .then(createdZip => {
-    //   return createdZip.json();
-    // })
-    // .then(jsonedZip => {
-    //   this.setState({
-    //     activeZip:'',
-    //     zips: [...this.state.zips, jsonedZip],
-    //   });
-    // });
     setTimeout(() => {
       // console.log(this.state.data[0]);
-
       this.clothingSelection();
-    },500)
+    },1000)
 }
 
+saveZip = () => {
+  console.log('in save zip');
+  fetch('http://localhost:3000/zips', {
+    body: JSON.stringify({zip: this.state.activeZip}),
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(createdZip => {
+    return createdZip.json();
+  })
+  .then(jsonedZip => {
+    console.log(jsonedZip);
+    this.setState({
+      activeZip:'',
+      zips: [...this.state.zips, jsonedZip],
+    });
+  });
+
+}
 // deleteZip = (id, index) => {
 //    fetch('localhost:3000/zips/'+id, {
 //        method: "DELETE"
@@ -153,6 +161,17 @@ export default class Weather extends Component {
 //        })
 //    })
 // }
+
+setActiveZip = (event) => {
+  event.preventDefault();
+  this.setState({
+    activeZip: event.target.id
+  })
+
+  setTimeout(()=>{
+    this.handleSubmit(event)
+  },200)
+}
 
 clothingSelection = () => {
   let res = [], avgTemp=0, avgRain=0, avgWind=0, sunnyBoolean=false, rainBoolean=false, windBoolean=false;
@@ -221,13 +240,14 @@ clothingSelection = () => {
       <div/>
       <Ul>
       {this.state.zips.map((zip)=> {
-        return <Li>{zip}</Li>
+        return <Li onClick={this.setActiveZip} id={zip.zip}>{zip.zip}</Li>
       })}
       </Ul>
       <Form onSubmit={this.handleSubmit}>
         <Input type="text" value={this.state.activeZip} id="activeZip" onChange={this.handleChange} />
         <Input type="submit" />
       </Form>
+      <button onClick={this.saveZip}>SAVE ZIP</button>
       {this.state.displayCharts?
       <FlexWrapper>
         <BarChart dataType={['main','temp']} label='Temperature' bulkData={this.state.data}/>
