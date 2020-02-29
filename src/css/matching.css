@@ -3,10 +3,21 @@
 } */
 
 /*- Card body -*/
+body{
+  background-color: rgba(124,190,240)
+}
+
 .flex {
   display: flex;
   flex-wrap: wrap;
   width: 800px;
+}
+
+.navlink {
+  margin: 0 2em 0 0;
+  text-decoration: none;
+  color: white;
+
 }
 
 .card-body {

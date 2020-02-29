@@ -221,7 +221,7 @@ export default class BarTrivia extends Component {
 
     return(
       <FlexWrapper>
-        <h1>Bar Triva</h1>
+        <h2>Bar Triva</h2>
         {this.state.initial?
         <Form onSubmit={this.getQuestions}>
           <Label>

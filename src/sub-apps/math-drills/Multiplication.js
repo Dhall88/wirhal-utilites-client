@@ -140,7 +140,7 @@ export default class Multiplication extends Component {
   render() {
     return(
       <FlexWrapper>
-      <h1>Multiplication</h1>
+      <h3>Multiplication</h3>
       <div>Score</div>
       <div>{this.state.score}</div>
       <Button onClick={this.questionArr}>Get a new question</Button>

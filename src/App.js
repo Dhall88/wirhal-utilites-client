@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import Home from './sub-apps/utilities/Home';
 import BarTrivia from './sub-apps/bar-trivia/BarTrivia';
@@ -11,6 +12,17 @@ import Weather from './sub-apps/weather/Weather'
 // import SignUpForm from './sub-apps/utilities/SignUpForm';
 // import LogInForm from './sub-apps/utilities/LogInForm';
 // import LogOut from './sub-apps/utilities/LogOut';
+
+const H1 = styled.h1`
+	text-align:center;
+`;
+
+const Nav = styled.nav`
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+	color: red;
+`;
 
 export default class MainRouter extends Component {
 	// constructor() {
@@ -36,58 +48,53 @@ export default class MainRouter extends Component {
 	render() {
 		return (
 			<React.Fragment>
+			<H1>Wirhal Family Utilites</H1>
 				<HashRouter>
 					<header>
-            <nav className="navbar-light bg-light row">
+						<Nav>
 							<NavLink
+								className='navlink'
 								exact
 								to="/"
-								activeClassName="is-active"
-								className="nav-item m-2"
 							>
 								Home
 							</NavLink>
               <NavLink
+								className='navlink'
                 exact
                 to="/bar-trivia"
-                activeClassName="is-active"
-                className="nav-item m-2"
               >
                 Bar Trivia
               </NavLink>
               <NavLink
+								className='navlink'
                 exact
                 to="/math-drills"
-                activeClassName="is-active"
-                className="nav-item m-2"
               >
                 Math Drills
               </NavLink>
 							<NavLink
+								className='navlink'
 								exact
 								to="/matching"
-								activeClassName="is-active"
-								className="nav-item m-2"
 							>
 								Matching
 							</NavLink>
 							<NavLink
+								className='navlink'
 							exact
 							to="/adventure"
-							activeClassName="is-active"
-							className="nav-item m-2"
 							>
 							Adventure
 							</NavLink>
 							<NavLink
+							className='navlink'
 							exact
 							to="/weather"
-							activeClassName="is-active"
-							className="nav-item m-2"
 							>
 							Weather
 							</NavLink>
-						</nav>
+						</Nav>
 					</header>
 					<div
 						// className={Route.to === '/my-plots' ? '' : 'app-container'}

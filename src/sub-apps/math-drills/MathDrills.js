@@ -78,11 +78,11 @@ export default class MathDrills extends Component {
 
     }
   render() {
-    const typeArr = [Addition, Subtraction, Multiplication, Division, OrderOfOperations]
+    const typeArr = [Addition, Subtraction, Multiplication, Division]
     const Type = typeArr[this.state.type]
     return(
       <FlexWrapper>
-      <h1>Math Drills</h1>
+      <h2>Math Drills</h2>
       <Form onSubmit={this.handleSubmit}>
         <Label>
           Difficulty
@@ -100,7 +100,6 @@ export default class MathDrills extends Component {
             <Option value={1}>Subtration</Option>
             <Option value={2}>Multiplication</Option>
             <Option value={3}>Division</Option>
-            <Option value={4}>Order Of Operations</Option>
           </Select>
         </Label>
         <Input type="submit" />

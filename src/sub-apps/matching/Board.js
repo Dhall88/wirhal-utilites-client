@@ -116,6 +116,7 @@ export default class Board extends Component {
 
     return(
       <FlexWrapper>
+      <h2>Matching</h2>
       <form onSubmit={this.handleSubmit}>
         <label>
           Difficulty

@@ -236,7 +236,7 @@ clothingSelection = () => {
   render() {
     return(
       <FlexWrapperColumn>
-      <h1>Weather</h1>
+      <h2>Weather</h2>
       <div/>
       <Ul>
       {this.state.zips.map((zip)=> {
