@@ -114,7 +114,7 @@ export default class BarTrivia extends Component {
   updateHighScore = () => {
   console.log('in bar update');
   if(this.state.score>this.state.currentHighScore) {
-    fetch('http://localhost:3000/bar_scores/3', {
+    fetch('http://localhost:3000/bar_scores/1', {
       body: JSON.stringify({score: this.state.score}),
       method: 'PUT',
       headers: {
@@ -222,11 +222,12 @@ export default class BarTrivia extends Component {
 
     return(
       <FlexWrapper>
+        
         <h2>Bar Triva</h2>
         {this.state.initial?
         <Form onSubmit={this.getQuestions}>
           <Label>
-            Difficulty
+            Length
             <Select onChange={this.handleChange} id = 'length'>
               <Option value={10}>Short</Option>
               <Option value={20}>Medium</Option>
@@ -267,7 +268,7 @@ export default class BarTrivia extends Component {
             <div>Play again?</div>
             <form onSubmit={this.getQuestions}>
               <Label>
-                Difficulty
+                Length
                 <Select onChange={this.handleChange} id = 'length'>
                   <Option value={10}>Short</Option>
                   <Option value={20}>Medium</Option>

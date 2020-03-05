@@ -176,9 +176,9 @@ setActiveZip = (event) => {
     activeZip: event.target.id
   })
 
-  // setTimeout(()=>{
-  //   this.handleSubmit(event)
-  // },200)
+  setTimeout(()=>{
+    this.handleSubmit(event)
+  },200)
 }
 
 clothingSelection = () => {
