@@ -1,13 +1,17 @@
 {
   "name": "wirhal-utilities-client",
   "version": "0.1.0",
-  "private": true,
+  "private": true, 
+  "engines": {
+    "node": "12.14"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "express": "^4.17.1",
     "node-sass": "^4.13.1",
     "physijs-webpack": "^0.1.4",
     "react": "^16.12.0",
@@ -23,14 +27,15 @@
     "simplex-noise": "^2.4.0",
     "styled-components": "^5.0.1",
     "three": "^0.113.2",
-    "webworkify": "^1.5.0",
-    "worker-loader": "^2.0.0",
     "three-orbitcontrols": "^2.110.3",
     "three-pointer-lock-controls": "^1.0.0",
-    "three-pointerlock": "0.0.2"
+    "three-pointerlock": "0.0.2",
+    "webworkify": "^1.5.0",
+    "worker-loader": "^2.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
