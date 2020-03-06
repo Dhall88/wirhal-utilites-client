@@ -19,7 +19,7 @@ export default class Home extends Component {
 	}
 	audioSrc=''
 	componentDidMount() {
-		this.aduioSrc='https://vgmdownloads.com/soundtracks/super-mario-yoshis-island-original-sound-version/lqomnkkv/03.%20Yoshi%20Island.mp3'
+		this.audioSrc='https://vgmdownloads.com/soundtracks/super-mario-yoshis-island-original-sound-version/lqomnkkv/03.%20Yoshi%20Island.mp3'
 	}
 	playMusic = (event) => {
 		event.preventDefault();
