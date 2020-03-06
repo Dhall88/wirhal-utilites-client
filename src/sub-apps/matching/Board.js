@@ -60,6 +60,7 @@ export default class Board extends Component {
     matches:0,
     totalMatches:4
   }
+  audioSrc=''
   childRef0=React.createRef();childRef1=React.createRef();childRef2=React.createRef(); childRef3=React.createRef();
   childRef4=React.createRef(); childRef5=React.createRef();childRef6=React.createRef(); childRef7=React.createRef();
   childRef8=React.createRef(); childRef9=React.createRef();childRef10=React.createRef(); childRef11=React.createRef();
@@ -70,6 +71,9 @@ export default class Board extends Component {
   squares=[]
   symbols=[]
 
+  componentDidMount() {
+    this.audioSrc='http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Coin_Sound_Effect.mp3'
+  }
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value })
   }
@@ -163,7 +167,7 @@ export default class Board extends Component {
         </Label>
         </Form>
         {this.state.matchBoolean===true?
-        <div classNamme='matched'><Audio source='http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Coin_Sound_Effect.mp3'/></div>:''}
+        <div classNamme='matched'><Audio source={this.audioSrc}/></div>:''}
         <div  className='flex'>
         {this.state.squares}
         </div>
