@@ -13,6 +13,7 @@ const FlexWrapper=styled.div`
   justify-content: center;
   width: 50%;
   margin: auto;
+  background-color: red;
   text-align: center;
   font-size: 30px;
 `;
@@ -22,7 +23,7 @@ const Form=styled.form`
 `;
 
 const Option=styled.option`
-  font-size: 30px;Aa
+  font-size: 30px;
 `;
 
 const Select=styled.select`
