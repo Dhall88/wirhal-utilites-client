@@ -26,25 +26,6 @@ const Nav = styled.nav`
 `;
 
 export default class MainRouter extends Component {
-	// constructor() {
-	// 	super();
-	// 	this.state = {
-	// 		username: '',
-	// 		password: '',
-	// 		isLoggedIn: false,
-	// 	};
-	// }
-	// componentDidMount() {
-	// 	if (localStorage.token) {
-	// 		this.setState({
-	// 			isLoggedIn: true,
-	// 		});
-	// 	} else {
-	// 		this.setState({
-	// 			isLoggedIn: false,
-	// 		});
-	// 	}
-	// }
 
 	render() {
 		return (
